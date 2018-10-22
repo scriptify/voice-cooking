@@ -1,4 +1,5 @@
 import App from './App.html';
+import setupSpeechRecognition from './speech';
 
 const app = new App({
 	target: document.body,
@@ -7,6 +8,6 @@ const app = new App({
 	}
 });
 
-window.app = app;
+setupSpeechRecognition();
 
 export default app;

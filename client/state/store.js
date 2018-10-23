@@ -5,6 +5,13 @@ import recipeData from './data/recipe.json';
 class ApplicationState extends Store {
   constructor(...args) {
     super(...args);
+    this.compute('recipe', ['currentRecipe'], (currentRecipe) => this.get().recipes[currentRecipe.id]);
+    this.compute('step', ['currentRecipe'], (currentRecipe) => {
+      const recipe = this.get().recipes[currentRecipe.id];
+      if (!recipe)
+        return { text: '' };
+      return recipe.data.steps[currentRecipe.currentStep ? currentRecipe.currentStep : 0];
+    });
     this.loadRecipes();
   }
 

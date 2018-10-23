@@ -1,0 +1,14 @@
+<div>
+	<p>The Greeting is:</p>
+	<p>{$greeting}</p>
+	<button on:click="$greet('T-Fisch')">Greet T-Fisch</button>
+	<NameInput />
+</div>
+
+<script>
+	export default {
+		components: {
+			NameInput: '../NameInput/index.html'
+		}
+	};
+</script>

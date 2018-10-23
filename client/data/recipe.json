@@ -1,0 +1,26 @@
+{
+    "title": "",
+    "description":"",
+    "ingredients":[
+        {
+            "name":"",
+            "amount":100
+        }
+    ],
+    "steps":[
+        {
+            "duration":30,
+            "text":"",
+            "coverImage":"",
+            "hasTimer": true
+        }
+    ],
+    "diets":[
+        {
+            "title":"",
+            "description":"",
+            "image":""
+        } 
+    ]
+
+}

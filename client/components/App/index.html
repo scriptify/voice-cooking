@@ -1,14 +1,10 @@
 <div>
-	<p>The Greeting is:</p>
-	<p>{$greeting}</p>
-	<button on:click="$greet('T-Fisch')">Greet T-Fisch</button>
-	<NameInput />
+	<p>Current recipe index: {$currentRecipe.id}</p>
+	<p>Current recipe step: {$currentRecipe.currentStep}</p>
 </div>
 
 <script>
 	export default {
-		components: {
-			NameInput: '../NameInput/index.html'
-		}
+		
 	};
 </script>

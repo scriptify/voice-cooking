@@ -1,21 +1,32 @@
 {
-    "title": "",
-    "description":"",
-    "ingredients":[
+    "title": "Pasta alla Italiana",
+    "duration": 20,
+    "description": "",
+    "ingredients": [
         {
             "name":"",
             "amount":100
         }
     ],
-    "steps":[
+    "steps": [
         {
-            "duration":30,
-            "text":"",
-            "coverImage":"",
-            "hasTimer": true
+            "text": "Fill water into a pot and put it on the stove.",
+            "coverImage": ""
+        },
+        {
+            "text": "As soon as the water cooks, put the noodles into the pot.",
+            "coverImage": ""
+        },
+        {
+            "text": "In the mean time, cut the tomatoes and the onions into small pieces.",
+            "coverImage": ""
+        },
+        {
+            "text": "Roast the vegetables.",
+            "coverImage": ""
         }
     ],
-    "diets":[
+    "diets": [
         {
             "title":"",
             "description":"",

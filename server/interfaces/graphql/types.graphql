@@ -1,0 +1,75 @@
+type Query {
+    recipe(id: ID): Recipe,
+    recipes: [Recipe!]!
+}
+
+type Mutation {
+    recipeCreate(data: RecipeInput): Recipe!
+}
+
+input RecipeInput {
+  title: String
+  duration: Float
+  description: String
+  ingredients: [IngredientInput!]!
+  steps: [StepInput!]!
+  diets: [ID!]!
+}
+
+input IngredientInput {
+    name: String
+    amount: AmountInput
+}
+
+enum UnitTypes {
+    G
+    L
+    ML
+    MG
+    KG
+    CUP
+    TSP
+    TBSP
+    UNIT
+    PINCH 
+}
+
+input AmountInput {
+    unit: UnitTypes,
+    value: Float
+}
+
+input StepInput {
+    text: String
+    coverImage: String
+}
+
+type Amount {
+    unit: String,
+    value: Float
+}
+
+type Ingredient {
+    name: String
+    amount: Amount
+}
+
+type Step {
+    text: String
+    coverImage: String
+}
+
+type Diet {
+    title: String
+    description: String
+    image: String
+}
+
+type Recipe {
+    title: String
+    duration: Float
+    description: String
+    ingredients: [Ingredient!]!
+    steps: [Step!]!
+    diets: [Diet!]!
+}

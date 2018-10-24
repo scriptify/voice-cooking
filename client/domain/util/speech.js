@@ -19,16 +19,20 @@ function setup() {
 
     recognition.continuous = true;
     recognition.lang = 'en-US';
-    recognition.interimResults = false;
+    // recognition.interimResults = true;
     recognition.maxAlternatives = 1;
 
     recognition.addEventListener('result', (e) => {
         const { results } = e;
         const [{ transcript }] = results[results.length - 1];
         eventEmitter.emit('result', transcript);
+        recognition.abort();
+        setTimeout(() => {
+          recognition.start();
+        }, 300);
     });
 
-    [
+    /* [
         'audiostart',
         'audioend',
         'end',
@@ -41,7 +45,7 @@ function setup() {
         'start'
        ].forEach(function(eventName) {
            recognition.addEventListener(eventName, (e) => console.log(eventName, e));
-       });
+       }); */
 
     recognition.start();
 

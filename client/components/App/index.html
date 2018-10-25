@@ -1,11 +1,11 @@
 <div>
-	<p>Recipe: {$recipe.data.title}</p>
-	<p>Step: {$step.text}</p>
-	<p>Current recipe step: {$currentRecipe.currentStep}</p>
+	<CategoriesList />
 </div>
 
 <script>
 	export default {
-		
+	  components: {
+		CategoriesList: '../CategoriesList'
+	  }
 	};
 </script>

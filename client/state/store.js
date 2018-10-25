@@ -1,20 +1,16 @@
 import { Store } from 'svelte/store';
 import ApolloClient from 'apollo-boost';
+import { createProvider } from 'svelte-apollo';
 import gql from "graphql-tag";
 
-
 import Recipe from '../domain/Recipe';
-import recipeData from './data/recipe.json';
 
 class ApplicationState extends Store {
-  constructor(...args) {
-    super(...args);
-
-    const client = new ApolloClient({ uri: 'http://localhost:4000' });
-    this.apolloClient = client;
-
+  constructor({ apolloClient, initialState }) {
+    super(initialState);
+    this.apolloClient = apolloClient;
     this.setupComputedProps();
-    this.loadRecipes(1, 2, 3, 4);
+    // this.loadRecipes(1, 2, 3, 4);
   }
 
   setupComputedProps() {
@@ -62,13 +58,19 @@ class ApplicationState extends Store {
 
 
 
-export default function createStore(graphql) {
+export default function createStore() {
+  const apolloClient = new ApolloClient({ uri: 'http://localhost:4000' });
+  const graphql = createProvider(apolloClient);
+
   return new ApplicationState({
-    recipes: [],
-    currentRecipe: {
-      id: null,
-      currentStep: null
-    },
-    graphql
+    apolloClient,
+    initialState: {
+      recipes: [],
+      currentRecipe: {
+        id: null,
+        currentStep: null
+      },
+      graphql
+    }
   });
 };

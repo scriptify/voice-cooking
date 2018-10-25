@@ -23,8 +23,10 @@
     "dev": "concurrently \"npm run server:dev\" \"npm run client:dev\""
   },
   "dependencies": {
+    "apollo-boost": "^0.1.17",
     "dotenv": "^6.1.0",
     "graphql-yoga": "^1.16.7",
-    "mongoose": "^5.3.6"
+    "mongoose": "^5.3.6",
+    "svelte-apollo": "^0.2.0"
   }
 }

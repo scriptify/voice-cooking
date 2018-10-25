@@ -1,20 +1,29 @@
 type Query {
-    recipe(id: ID): Recipe,
-    recipes: [Recipe!]!
+    recipe(id: ID): Recipe
+    recipes(categoryId: ID): [Recipe!]!
+    category(id: ID): Category
+    categories: [Category!]!
 }
 
 type Mutation {
     recipeCreate(data: RecipeInput): Recipe!
+    categoryCreate(data: CategoryInput): Category!
 }
 
 input RecipeInput {
-  title: String
-  duration: Float
-  description: String
+  title: String!
+  duration: Float!
+  description: String!
   ingredients: [IngredientInput!]!
   steps: [StepInput!]!
   diets: [ID!]!
+  categories: [ID!]!
 }
+
+input CategoryInput {
+    name: String!
+    image: String!
+} 
 
 input IngredientInput {
     name: String
@@ -35,7 +44,7 @@ enum UnitTypes {
 }
 
 input AmountInput {
-    unit: UnitTypes,
+    unit: UnitTypes
     value: Float
 }
 
@@ -45,7 +54,7 @@ input StepInput {
 }
 
 type Amount {
-    unit: String,
+    unit: String
     value: Float
 }
 
@@ -60,16 +69,25 @@ type Step {
 }
 
 type Diet {
+    _id: ID
     title: String
     description: String
     image: String
 }
 
+type Category {
+    _id: ID
+    name: String
+    image: String
+} 
+
 type Recipe {
+    _id: ID
     title: String
     duration: Float
     description: String
     ingredients: [Ingredient!]!
     steps: [Step!]!
     diets: [Diet!]!
+    categories: [Category!]!
 }

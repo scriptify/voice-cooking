@@ -1,10 +1,18 @@
 import { Store } from 'svelte/store';
+import ApolloClient from 'apollo-boost';
+import gql from "graphql-tag";
+
+
 import Recipe from '../domain/Recipe';
 import recipeData from './data/recipe.json';
 
 class ApplicationState extends Store {
   constructor(...args) {
     super(...args);
+
+    const client = new ApolloClient({ uri: 'http://localhost:4000' });
+    this.apolloClient = client;
+
     this.setupComputedProps();
     this.loadRecipes(1, 2, 3, 4);
   }
@@ -40,15 +48,27 @@ class ApplicationState extends Store {
         id: 0
       }
     });
+
+    const queried = await this.apolloClient.query({
+      query: gql`
+        query QueryRecipes {
+          recipes {title}
+        }
+      `
+    });
+    console.log({ queried })
   }
 }
 
-const applicationStore = new ApplicationState({
-  recipes: [],
-  currentRecipe: {
-    id: null,
-    currentStep: null
-  }
-});
 
-export default applicationStore;
+
+export default function createStore(graphql) {
+  return new ApplicationState({
+    recipes: [],
+    currentRecipe: {
+      id: null,
+      currentStep: null
+    },
+    graphql
+  });
+};

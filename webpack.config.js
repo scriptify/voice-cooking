@@ -9,7 +9,7 @@ module.exports = {
 		bundle: ['./client/main.js']
 	},
 	resolve: {
-		extensions: ['.js', '.html']
+		extensions: ['.mjs', '.js', '.html']
 	},
 	output: {
 		path: __dirname + '/public',

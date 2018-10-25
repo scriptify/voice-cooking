@@ -1,5 +1,7 @@
 import App from './components/App/index.html';
-import store from './state/store';
+import createStore from './state/store';
+
+const store = createStore();
 
 const app = new App({
 	target: document.querySelector('#app'),

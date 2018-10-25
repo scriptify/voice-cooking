@@ -65,6 +65,12 @@ const recipeSchema = new mongoose.Schema({
             type: mongoose.Schema.ObjectId,
             ref: 'Diet'
         }
+    ],
+    categories: [
+        {
+            type: mongoose.Schema.ObjectId,
+            ref: 'Category'
+        }
     ]
 });
 

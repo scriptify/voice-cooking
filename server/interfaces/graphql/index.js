@@ -6,6 +6,7 @@ const { GraphQLServer } = require('graphql-yoga');
 const resolvers = require('./resolvers');
 
 const recipe = require('../../bussiness/models/Recipe');
+const category = require('../../bussiness/models/Category');
 
 const readFile = util.promisify(fs.readFile);
 
@@ -16,7 +17,7 @@ module.exports = async function setupGraphQLServer() {
     resolvers,
     context: ({ request }) => ({
       req: request,
-      models: { recipe }
+      models: { recipe, category }
     })
   });
   return server;

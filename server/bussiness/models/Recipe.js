@@ -13,9 +13,12 @@ class Recipe {
     return newRecipe;
   }
 
-  get(id) {
+  get({ id, categoryId }) {
     if (id)
       return this.DbModel.findById(id);
+    if (categoryId) {
+      return this.DbModel.find({ categories: categoryId });
+    }
     return this.DbModel.find({});
   }
 }

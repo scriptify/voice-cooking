@@ -9,8 +9,8 @@ class Diet {
 
   async create(data) {
     const newDiet = new this.DbModel(data);
-    await newDiet.save();
-    return newDiet;
+    const saved = await newDiet.save();
+    return saved;
   }
 
   get(id) {

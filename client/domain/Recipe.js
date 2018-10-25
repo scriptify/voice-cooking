@@ -1,5 +1,6 @@
 import EventEmitter from './util/EventEmitter';
 import SpeechCommand from './util/SpeechCommand';
+import { say } from './util/speech';
 
 export default class Recipe extends EventEmitter {
   constructor(data) {
@@ -31,6 +32,8 @@ export default class Recipe extends EventEmitter {
           newStepValue = this.currentStep + 1;
           if (newStepValue >= this.data.steps.length)
             return;
+          const { text: textToSpeech } = this.data.steps[newStepValue];
+          say(textToSpeech);
         break;
 
         case BACK_CMD:

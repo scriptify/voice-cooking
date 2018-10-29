@@ -1,4 +1,5 @@
 # Roadmap
-- Implement GraphQL client side
+- Implement basic frontend
+    - CategoryList -> RecipeList -> Recipe (steps)
+    - Go back to CategoryList
 - Timer
-- Basic Frontend

@@ -10,7 +10,7 @@ class Category {
   async create(data) {
     const newCategory = new this.DbModel(data);
     const saved  = await newCategory.save();
-    return saved;
+    return newCategory.toJSON();
   }
 
   get(id) {

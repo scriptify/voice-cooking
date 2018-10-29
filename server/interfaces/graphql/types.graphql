@@ -18,6 +18,7 @@ input RecipeInput {
   steps: [StepInput!]!
   diets: [ID!]!
   categories: [ID!]!
+  image: String
 }
 
 input CategoryInput {
@@ -90,4 +91,5 @@ type Recipe {
     steps: [Step!]!
     diets: [Diet!]!
     categories: [Category!]!
+    image: String
 }

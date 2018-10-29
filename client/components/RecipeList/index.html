@@ -1,11 +1,11 @@
 <ul>
-	{#await categories}
+	{#await recipes}
 		Loading...
 		{:then result}
-			{#each result.data.categories as category}
-				<li class="card" style="background-image: url({category.image})" on:click="$setCurrentCategory(category._id)">
+			{#each result.data.recipes as recipe}
+				<li class="card" style="background-image: url({recipe.image})" on:click="$setCurrentRecipe(recipe._id)">
 					<div class="overlay">
-						<p>{category.name}</p>
+						<p>{recipe.title}</p>
 					</div>
 				</li>
 			{/each}
@@ -18,18 +18,29 @@
   import { query, connect } from 'svelte-apollo';
 	import gql from 'graphql-tag';
 
-  export default {
-		data: () => ({
-			categories: query(gql`
-					query QueryCategories {
-						categories {
-							_id
-							name
-							image
-						}
+	export default {
+		async oncreate() {
+			const { currentCategory: categoryId } = this.store.get();
+			const result = query(gql`
+				query QueryRecipes($categoryId: ID!) {
+					recipes(categoryId: $categoryId) {
+						_id
+						image
+						title
+						description
 					}
-				`)
-		}),
+				}
+			`, { variables: { categoryId } });
+			
+			this.set({
+				recipes: result
+			});
+		},
+		data() {
+			return {
+				recipes: new Promise(() => {})
+			};
+		},
 		onstate: connect
   };
 </script>

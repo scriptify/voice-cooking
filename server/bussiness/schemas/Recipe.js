@@ -7,6 +7,10 @@ const recipeSchema = new mongoose.Schema({
         minlength: 5,
         maxlength: 100
     },
+    image: {
+        type: String,
+        required: true
+    },
     duration: {
         type: Number,
         required: true,

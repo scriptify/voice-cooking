@@ -54,6 +54,12 @@ class ApplicationState extends Store {
     });
     console.log({ queried })
   }
+
+  setCurrentCategory(categoryId) {
+    this.set({
+      currentCategory: categoryId
+    });
+  }
 }
 
 
@@ -70,6 +76,7 @@ export default function createStore() {
         id: null,
         currentStep: null
       },
+      currentCategory: null,
       graphql
     }
   });

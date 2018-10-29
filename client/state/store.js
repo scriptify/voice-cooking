@@ -14,18 +14,56 @@ class ApplicationState extends Store {
   }
 
   setupComputedProps() {
-    this.compute('recipe', ['currentRecipe'], (currentRecipe) => this.get().recipes[currentRecipe.id]);
+    this.compute('recipe', ['currentRecipe'], (currentRecipe) => {
+      const recipe = this.get().recipes.find(r => r._id === currentRecipe.id);
+      return recipe;
+    });
     this.compute('step', ['currentRecipe'], (currentRecipe) => {
-      const recipe = this.get().recipes[currentRecipe.id];
+      const recipe = this.get().recipes.find(r => r._id === currentRecipe.id);
       if (!recipe)
         return { text: '' };
-      return recipe.data.steps[currentRecipe.currentStep ? currentRecipe.currentStep : 0];
+      return recipe.steps[currentRecipe.currentStep ? currentRecipe.currentStep : 0];
     });
   }
 
-  async loadRecipes() {
-    const { recipes, currentRecipe } = this.get();
-    const newRecipe = new Recipe(recipeData);
+  async loadRecipe(recipeId) {
+
+    const { data: { recipe } } = await this.apolloClient.query({
+      query: gql`
+        query QueryRecipe($id: ID) {
+          recipe(id: $id) {
+            _id
+            title
+            duration
+            description
+            ingredients {
+              name
+              amount {
+                unit
+                value
+              }
+            }
+            steps {
+              text
+              coverImage
+            }
+            diets {
+              title
+              description
+              image
+            }
+            image
+          }
+        }
+      `,
+      variables: { id: recipeId }
+    });
+
+    const newRecipe = new Recipe(recipe);
+
+    this.set({
+      recipes: this.get().recipes.concat(recipe)
+    });
 
     newRecipe.addEventListener('step', () => {
       const { currentRecipe } = this.get();
@@ -37,27 +75,23 @@ class ApplicationState extends Store {
       });
     });
 
-    this.set({
-      recipes: recipes.concat([newRecipe]),
-      currentRecipe: {
-        ...currentRecipe,
-        id: 0
-      }
-    });
 
-    const queried = await this.apolloClient.query({
-      query: gql`
-        query QueryRecipes {
-          recipes {title}
-        }
-      `
-    });
-    console.log({ queried })
   }
 
   setCurrentCategory(categoryId) {
     this.set({
       currentCategory: categoryId
+    });
+  }
+
+  async setCurrentRecipe(recipeId) {
+    await this.loadRecipe(recipeId);
+    this.set({
+      currentCategory: null,
+      currentRecipe: {
+        id: recipeId,
+        currentStep: 0
+      }
     });
   }
 }

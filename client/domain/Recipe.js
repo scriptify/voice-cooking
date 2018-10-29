@@ -10,6 +10,11 @@ export default class Recipe extends EventEmitter {
     this.setupCommandListeners();
   }
 
+  say() {
+    const { text: textToSpeech } = this.data.steps[this.currentStep];
+    say(textToSpeech);
+  }
+
   setupCommandListeners() {
     const NEXT_CMD = 'next step';
     const NEXT_CMD_1 = 'next';
@@ -23,6 +28,8 @@ export default class Recipe extends EventEmitter {
       BACK_CMD_1
     ]);
 
+    this.say(); // Utter first step
+
     speechCommand.addEventListener('command', (command) => {
       let newStepValue;
 
@@ -32,8 +39,6 @@ export default class Recipe extends EventEmitter {
           newStepValue = this.currentStep + 1;
           if (newStepValue >= this.data.steps.length)
             return;
-          const { text: textToSpeech } = this.data.steps[newStepValue];
-          say(textToSpeech);
         break;
 
         case BACK_CMD:
@@ -47,7 +52,12 @@ export default class Recipe extends EventEmitter {
           return;
       }
 
+      const hasStepChanged = newStepValue !== this.currentStep;
       this.currentStep = newStepValue;
+
+      if (hasStepChanged)
+        this.say();
+
       this.emit('step');
 
     });

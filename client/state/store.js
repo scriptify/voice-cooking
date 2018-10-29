@@ -46,6 +46,11 @@ class ApplicationState extends Store {
             steps {
               text
               coverImage
+              setTimer {
+                name
+                duration
+                stopText
+              }
             }
             diets {
               title
@@ -75,6 +80,25 @@ class ApplicationState extends Store {
       });
     });
 
+    newRecipe.addEventListener('timerstart', () => {
+      const { currentRecipe } = this.get();
+      this.set({
+        currentRecipe: {
+          ...currentRecipe,
+          timers: currentRecipe.timers.concat({ ofStep: newRecipe.currentStep })
+        }
+      });
+    });
+
+    newRecipe.addEventListener('timerstop', (ofStep) => {
+      const { currentRecipe } = this.get();
+      this.set({
+        currentRecipe: {
+          ...currentRecipe,
+          timers: currentRecipe.timers.filter(t => t.ofStep !== ofStep)
+        }
+      });
+    });
 
   }
 
@@ -90,7 +114,8 @@ class ApplicationState extends Store {
       currentCategory: null,
       currentRecipe: {
         id: recipeId,
-        currentStep: 0
+        currentStep: 0,
+        timers: []
       }
     });
   }
@@ -108,7 +133,8 @@ export default function createStore() {
       recipes: [],
       currentRecipe: {
         id: null,
-        currentStep: null
+        currentStep: null,
+        timers: []
       },
       currentCategory: null,
       graphql

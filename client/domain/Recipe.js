@@ -21,11 +21,15 @@ export default class Recipe extends EventEmitter {
     const BACK_CMD = 'go back';
     const BACK_CMD_1 = 'back';
     const BACK_CMD_2 = 'bag';
+    const START_TIMER_CMD = 'start timer';
 
     const speechCommand = new SpeechCommand([
       NEXT_CMD,
+      NEXT_CMD_1,
       BACK_CMD,
-      BACK_CMD_1
+      BACK_CMD_1,
+      BACK_CMD_2,
+      START_TIMER_CMD
     ]);
 
     this.say(); // Utter first step
@@ -48,6 +52,24 @@ export default class Recipe extends EventEmitter {
           if (newStepValue < 0)
             return;
         break;
+
+        case START_TIMER_CMD:
+          const step = this.data.steps[this.currentStep];
+          console.log('start timer', step)
+          if (!step.setTimer)
+            return; // Current step has no timer to set
+          const stepIndex = this.currentStep; // Save step index
+          setTimeout(() => {
+            // Time expired
+            this.emit('timerstop', stepIndex);
+            if (step.setTimer.stopText)
+              say(step.setTimer.stopText);
+          }, step.setTimer.duration * 1000);
+          say(`The timer is set for ${(step.setTimer.duration / 60).toFixed(1)} minutes.`);
+          this.emit('timerstart');
+          return;
+        break;
+
         default:
           return;
       }

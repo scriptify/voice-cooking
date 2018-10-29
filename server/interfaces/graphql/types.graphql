@@ -52,6 +52,13 @@ input AmountInput {
 input StepInput {
     text: String
     coverImage: String
+    setTimer: TimerInput
+}
+
+input TimerInput {
+    duration: Float
+    name: String
+    stopText: String
 }
 
 type Amount {
@@ -67,6 +74,7 @@ type Ingredient {
 type Step {
     text: String
     coverImage: String
+    setTimer: Timer
 }
 
 type Diet {
@@ -80,7 +88,13 @@ type Category {
     _id: ID
     name: String
     image: String
-} 
+}
+
+type Timer {
+    duration: Float
+    name: String
+    stopText: String
+}
 
 type Recipe {
     _id: ID

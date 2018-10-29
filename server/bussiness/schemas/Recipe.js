@@ -61,7 +61,12 @@ const recipeSchema = new mongoose.Schema({
                 minlength: 5,
                 maxlength: 150
             },
-            coverImage: String
+            coverImage: String,
+            setTimer: {
+                duration: Number,
+                name: String,
+                stopText: String
+            }
         }
     ],
     diets: [

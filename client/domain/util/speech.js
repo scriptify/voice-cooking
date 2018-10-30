@@ -24,6 +24,7 @@ function setup() {
 
     recognition.addEventListener('result', (e) => {
         const { results } = e;
+        console.log({ results });
         const [{ transcript }] = results[results.length - 1];
         eventEmitter.emit('result', transcript);
         recognition.abort();
@@ -51,11 +52,27 @@ function setup() {
 
 }
 
-export function say(text) {
+
+let isCurrentlySpeaking = false;
+window.utterances = []; // Workaroud, otherwise 'onend' would not be fired
+function utter(text) {
+    isCurrentlySpeaking = true;
     const speechSynthesis = window.speechSynthesis || window.webkitSpeechSynthesis;
     const sayThis = new SpeechSynthesisUtterance(text);
     sayThis.lang = 'en-US';
+    sayThis.onend = () => {
+        isCurrentlySpeaking = false;
+    };
+    window.utterances.push(sayThis);
     speechSynthesis.speak(sayThis);
+}
+
+export function say(text) { // Prevent from collision
+    if (!isCurrentlySpeaking) {
+        utter(text);
+    } else {
+        setTimeout(() => say(text), 1000);
+    }
 }
 
 export function addGrammar(grammar) {

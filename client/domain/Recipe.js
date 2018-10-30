@@ -15,73 +15,84 @@ export default class Recipe extends EventEmitter {
     say(textToSpeech);
   }
 
-  setupCommandListeners() {
-    const NEXT_CMD = 'next step';
-    const NEXT_CMD_1 = 'next';
-    const BACK_CMD = 'go back';
-    const BACK_CMD_1 = 'back';
-    const BACK_CMD_2 = 'bag';
-    const START_TIMER_CMD = 'start timer';
+  changeStep(newStepValue) {
+    const hasStepChanged = newStepValue !== this.currentStep;
+    this.currentStep = newStepValue;
 
-    const speechCommand = new SpeechCommand([
-      NEXT_CMD,
-      NEXT_CMD_1,
-      BACK_CMD,
-      BACK_CMD_1,
-      BACK_CMD_2,
-      START_TIMER_CMD
-    ]);
+    if (hasStepChanged)
+      this.say();
+
+    this.emit('step');
+  }
+
+  setupCommandListeners() {
+
+    const timerCmds = this.data.steps
+      .map((step, stepIndex) => {
+        if (step.setTimer && step.setTimer.name) {
+          const action = () => {
+            if (step.setTimer.wasStarted)
+              return;
+            step.setTimer.wasStarted = true;
+            const startTime = Date.now();
+            const durationMs = step.setTimer.duration * 1000;
+            const interval = setInterval(() => {
+              const currentTime = Date.now();
+              const timePassed = currentTime - startTime;
+              if (timePassed >= durationMs) {
+                // Time expired
+                clearInterval(interval);
+                this.emit('timerstop', stepIndex);
+                if (step.setTimer.stopText)
+                  say(step.setTimer.stopText);
+              }
+              const procentualProgress = (1 / durationMs) * timePassed;
+              this.emit('timerupdate', { ofStep: stepIndex, procentualProgress })
+            }, 300);
+
+            say(`The timer is set for ${(step.setTimer.duration / 60).toFixed(1)} minutes.`);
+            this.emit('timerstart', stepIndex);
+          };
+          return { cmds: [`start ${step.setTimer.name} timer`], action };
+        }
+        return null;
+      })
+      .filter(el => el);
+
+    const possibleCommands = [
+      {
+        cmds: ['next', 'next step'],
+        action: () => {
+          const newStepValue = this.currentStep + 1;
+          if (newStepValue >= this.data.steps.length)
+            return;
+          this.changeStep(newStepValue);
+        }
+      },
+      {
+        cmds: ['go back', 'back', 'bag'],
+        action: () => {
+          const newStepValue = this.currentStep - 1;
+          if (newStepValue < 0)
+            return;
+          this.changeStep(newStepValue);
+        }
+      },
+      ...timerCmds
+    ];
+    
+    const preparedCmds = possibleCommands.reduce((acc, el) => acc.concat(el.cmds), []);
+    const speechCommand = new SpeechCommand(preparedCmds);
 
     this.say(); // Utter first step
 
     speechCommand.addEventListener('command', (command) => {
-      let newStepValue;
+      console.log({ command });
+      const matchingAction = possibleCommands.find((cmd) => cmd.cmds.find(c => c === command));
+      if (!matchingAction)
+        return;
 
-      switch (command) {
-        case NEXT_CMD:
-        case NEXT_CMD_1:
-          newStepValue = this.currentStep + 1;
-          if (newStepValue >= this.data.steps.length)
-            return;
-        break;
-
-        case BACK_CMD:
-        case BACK_CMD_1:
-        case BACK_CMD_2:
-          newStepValue = this.currentStep - 1;
-          if (newStepValue < 0)
-            return;
-        break;
-
-        case START_TIMER_CMD:
-          const step = this.data.steps[this.currentStep];
-          console.log('start timer', step)
-          if (!step.setTimer)
-            return; // Current step has no timer to set
-          const stepIndex = this.currentStep; // Save step index
-          setTimeout(() => {
-            // Time expired
-            this.emit('timerstop', stepIndex);
-            if (step.setTimer.stopText)
-              say(step.setTimer.stopText);
-          }, step.setTimer.duration * 1000);
-          say(`The timer is set for ${(step.setTimer.duration / 60).toFixed(1)} minutes.`);
-          this.emit('timerstart');
-          return;
-        break;
-
-        default:
-          return;
-      }
-
-      const hasStepChanged = newStepValue !== this.currentStep;
-      this.currentStep = newStepValue;
-
-      if (hasStepChanged)
-        this.say();
-
-      this.emit('step');
-
+      matchingAction.action();
     });
 
   }

@@ -1,12 +1,13 @@
 <div>
 	<p>{$recipe.title}</p>
 	<p>Current step: {$step.text}</p>
-	{#if $step.setTimer}
-		<p>You can set a timer for this step: {$step.setTimer.name}</p>
-		<p>Duration: {$step.setTimer.duration}s</p>
-	{/if}
+	<p>Possible timers:</p>
+	{#each $possibleTimers as timer}
+		<p>{timer.name}</p>
+		<p>Duration: {timer.duration}s</p>
+	{/each}
 	<p>Active timers:</p>
-	{#each $currentRecipe.timers as timer}
+	{#each $currentRecipe.activeTimers as timer}
 		<p>{timer.ofStep}</p>
 	{/each}
 </div>

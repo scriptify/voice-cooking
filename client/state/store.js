@@ -24,6 +24,23 @@ class ApplicationState extends Store {
         return { text: '' };
       return recipe.steps[currentRecipe.currentStep ? currentRecipe.currentStep : 0];
     });
+    this.compute('possibleTimers', ['currentRecipe'], () => {
+      const { recipes, currentRecipe } = this.get();
+      const { currentStep, executedTimers } = currentRecipe;
+      const recipe = recipes.find(r => r._id === currentRecipe.id);
+      if (!recipe)
+        return [];
+      const allTimersUntilNow = recipe.steps
+        .slice(0, currentStep + 1)
+        .map(step => step.setTimer && step.setTimer.name ? step.setTimer : null)
+        .filter((timer, index) => {
+          if (!timer)
+            return false;
+          return !executedTimers.find(t => t.ofStep === index);
+        });
+
+      return allTimersUntilNow;
+    });
   }
 
   async loadRecipe(recipeId) {
@@ -80,12 +97,13 @@ class ApplicationState extends Store {
       });
     });
 
-    newRecipe.addEventListener('timerstart', () => {
+    newRecipe.addEventListener('timerstart', (ofStep) => {
       const { currentRecipe } = this.get();
       this.set({
         currentRecipe: {
           ...currentRecipe,
-          timers: currentRecipe.timers.concat({ ofStep: newRecipe.currentStep })
+          activeTimers: currentRecipe.activeTimers.concat({ ofStep }),
+          executedTimers: currentRecipe.executedTimers.concat({ ofStep })
         }
       });
     });
@@ -95,7 +113,7 @@ class ApplicationState extends Store {
       this.set({
         currentRecipe: {
           ...currentRecipe,
-          timers: currentRecipe.timers.filter(t => t.ofStep !== ofStep)
+          activeTimers: currentRecipe.activeTimers.filter(t => t.ofStep !== ofStep)
         }
       });
     });
@@ -115,7 +133,8 @@ class ApplicationState extends Store {
       currentRecipe: {
         id: recipeId,
         currentStep: 0,
-        timers: []
+        activeTimers: [],
+        executedTimers: []
       }
     });
   }
@@ -134,7 +153,8 @@ export default function createStore() {
       currentRecipe: {
         id: null,
         currentStep: null,
-        timers: []
+        activeTimers: [],
+        finishedTimers: []
       },
       currentCategory: null,
       graphql

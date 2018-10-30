@@ -24,6 +24,7 @@ function setup() {
 
     recognition.addEventListener('result', (e) => {
         const { results } = e;
+        console.log({ results });
         const [{ transcript }] = results[results.length - 1];
         eventEmitter.emit('result', transcript);
         recognition.abort();

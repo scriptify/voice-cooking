@@ -18,7 +18,7 @@ export default class SpeechCommand extends EventEmitter {
   }
 
   onResult(recognitionResult) {
-    const MAX_LETTERS_TOO_MUCH = 12;
+    const MAX_LETTERS_TOO_MUCH = 200;
     const command = this.commands.find(command => recognitionResult.includes(command));
 
     if (!command)

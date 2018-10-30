@@ -5,9 +5,9 @@
 	<div class="timer-container">
 		{#each $timersToShow as timer}
 			{#if timer.inactive}
-				<ProgressRing color="white" progress={timer.percentualProgress} text="{timer.name}" />
+				<ProgressRing color="#fff" progress={timer.percentualProgress} text="{timer.name}" />
 				{:else}
-					<ProgressRing color="red" progress={timer.percentualProgress} text="{timer.name}" />
+					<ProgressRing color="{timer.color}" progress={timer.percentualProgress} text="{timer.name}" />
 			{/if}
 		{/each}
 	</div>
@@ -31,7 +31,8 @@
 	.timer-container {
 		position: fixed;
 		bottom: 10px;
-		left: 10px;
+		left: 0px;
+		display: flex;
 	}
 </style>
 

@@ -24,7 +24,7 @@ class ApplicationState extends Store {
         return { text: '' };
       return recipe.steps[currentRecipe.currentStep ? currentRecipe.currentStep : 0];
     });
-    this.compute('possibleTimers', ['currentRecipe'], () => {
+    this.compute('timersToShow', ['currentRecipe'], () => {
       const { recipes, currentRecipe } = this.get();
       const { currentStep, executedTimers } = currentRecipe;
       const recipe = recipes.find(r => r._id === currentRecipe.id);
@@ -32,13 +32,22 @@ class ApplicationState extends Store {
         return [];
       const allTimersUntilNow = recipe.steps
         .slice(0, currentStep + 1)
-        .map(step => step.setTimer && step.setTimer.name ? step.setTimer : null)
+        .map((step, stepIndex) => {
+          const timer = step.setTimer && step.setTimer.name ? step.setTimer : null;
+          if (!timer)
+            return null;
+          const activeTimer = currentRecipe.activeTimers.find(t => t.ofStep === stepIndex);
+          return {
+            ...timer,
+            percentualProgress: activeTimer ? activeTimer.percentualProgress : 100,
+            inactive: !(!!activeTimer)
+          };
+        })
         .filter((timer, index) => {
           if (!timer)
             return false;
           return !executedTimers.find(t => t.ofStep === index);
         });
-
       return allTimersUntilNow;
     });
   }
@@ -67,6 +76,7 @@ class ApplicationState extends Store {
                 name
                 duration
                 stopText
+                color
               }
             }
             diets {
@@ -102,8 +112,7 @@ class ApplicationState extends Store {
       this.set({
         currentRecipe: {
           ...currentRecipe,
-          activeTimers: currentRecipe.activeTimers.concat({ ofStep }),
-          executedTimers: currentRecipe.executedTimers.concat({ ofStep })
+          activeTimers: currentRecipe.activeTimers.concat({ ofStep, percentualProgress: 0 })
         }
       });
     });
@@ -113,7 +122,26 @@ class ApplicationState extends Store {
       this.set({
         currentRecipe: {
           ...currentRecipe,
-          activeTimers: currentRecipe.activeTimers.filter(t => t.ofStep !== ofStep)
+          activeTimers: currentRecipe.activeTimers.filter(t => t.ofStep !== ofStep),
+          executedTimers: currentRecipe.executedTimers.concat({ ofStep })
+        }
+      });
+    });
+
+    newRecipe.addEventListener('timerupdate', ({ ofStep, percentualProgress }) => {
+      const { currentRecipe } = this.get();
+      this.set({
+        currentRecipe: {
+          ...currentRecipe,
+          activeTimers: currentRecipe.activeTimers.map((timer) => {
+            if (timer.ofStep === ofStep) {
+              return {
+                ...timer,
+                percentualProgress: percentualProgress * 100
+              };
+            }
+            return timer;
+          })
         }
       });
     });

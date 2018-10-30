@@ -1,19 +1,44 @@
-<div>
-	<p>{$recipe.title}</p>
-	<p>Current step: {$step.text}</p>
-	<p>Possible timers:</p>
-	{#each $possibleTimers as timer}
-		<p>{timer.name}</p>
-		<p>Duration: {timer.duration}s</p>
-	{/each}
-	<p>Active timers:</p>
-	{#each $currentRecipe.activeTimers as timer}
+<div class="step">
+	<div class="main-container">
+		<p class="mainText">{$step.text}</p>
+	</div>
+	<div class="timer-container">
+		{#each $timersToShow as timer}
+			{#if timer.inactive}
+				<ProgressRing color="white" progress={timer.percentualProgress} text="{timer.name}" />
+				{:else}
+					<ProgressRing color="red" progress={timer.percentualProgress} text="{timer.name}" />
+			{/if}
+		{/each}
+	</div>
+	<!--{#each $currentRecipe.activeTimers as timer}
 		<p>{timer.ofStep}</p>
-	{/each}
+	{/each}-->
 </div>
+
+<style>
+
+	.main-container {
+		height: 80vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 3em;
+		text-align: center;
+		color: #fff;
+	}
+
+	.timer-container {
+		position: fixed;
+		bottom: 10px;
+		left: 10px;
+	}
+</style>
 
 <script>
 	export default {
-	  
+	  components: {
+		ProgressRing: '../ProgressRing'
+	  }
 	};
 </script>

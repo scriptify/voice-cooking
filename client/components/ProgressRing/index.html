@@ -1,0 +1,38 @@
+<div class="ring">
+	<svg viewBox="0 0 36 36" class="circular-chart">
+		<path class="circle"
+			stroke-dasharray="{progress}, 100"
+			stroke="{color}"
+			d="M18 2.0845
+			a 15.9155 15.9155 0 0 1 0 31.831
+			a 15.9155 15.9155 0 0 1 0 -31.831"
+		/>
+	</svg>
+	<p class="text">{text}</p>
+</div>
+
+<style>
+
+	.circular-chart {
+		display: block;
+		width: 80px;
+		height: 80px;
+	}
+
+	.circle {
+		fill: none;
+		stroke-width: 2.8;
+		stroke-linecap: round;
+	}
+
+	.text {
+		text-align: center;
+		color: #fff;
+	}
+</style>
+
+<script>
+	export default {
+	  
+	};
+</script>

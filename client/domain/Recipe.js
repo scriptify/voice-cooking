@@ -46,8 +46,8 @@ export default class Recipe extends EventEmitter {
                 if (step.setTimer.stopText)
                   say(step.setTimer.stopText);
               }
-              const procentualProgress = (1 / durationMs) * timePassed;
-              this.emit('timerupdate', { ofStep: stepIndex, procentualProgress })
+              const percentualProgress = (1 / durationMs) * timePassed;
+              this.emit('timerupdate', { ofStep: stepIndex, percentualProgress });
             }, 300);
 
             say(`The timer is set for ${(step.setTimer.duration / 60).toFixed(1)} minutes.`);

@@ -1,7 +1,3 @@
 # Roadmap
-- Timer
-    - Timer can be started from anywhere using a unique identifier (start {xy} timer)
-    - As soon as timer stops: Play signal, then utter "stopText"
-    - Possible solution for sound output collisions: SoundOutput queue
-- Text-To-Speech Queue
+- Recipe overview (as a step before the actual step-by-step guide) [UI]
 - Go back to CategoryList

@@ -65,7 +65,8 @@ const recipeSchema = new mongoose.Schema({
             setTimer: {
                 duration: Number,
                 name: String,
-                stopText: String
+                stopText: String,
+                color: String
             }
         }
     ],

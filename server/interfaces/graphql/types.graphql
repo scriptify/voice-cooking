@@ -59,6 +59,7 @@ input TimerInput {
     duration: Float
     name: String
     stopText: String
+    color: String
 }
 
 type Amount {
@@ -94,6 +95,7 @@ type Timer {
     duration: Float
     name: String
     stopText: String
+    color: String
 }
 
 type Recipe {

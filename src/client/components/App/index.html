@@ -1,0 +1,21 @@
+<div>
+	{#if $currentRecipe.id}
+		<Recipe />
+	{:elseif $currentCategory}
+		<RecipeList />
+	{:else}
+		<CategoriesList />
+	{/if}
+
+	
+</div>
+
+<script>
+	export default {
+	  components: {
+			CategoriesList: '../CategoriesList/index.html',
+			RecipeList: '../RecipeList/index.html',
+			Recipe: '../Recipe/index.html'
+	  }
+	};
+</script>

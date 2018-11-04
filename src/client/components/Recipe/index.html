@@ -1,0 +1,45 @@
+<div class="step">
+	<div class="main-container">
+		<p class="mainText">{$step.text}</p>
+	</div>
+	<div class="timer-container">
+		{#each $timersToShow as timer}
+			{#if timer.inactive}
+				<ProgressRing color="#fff" progress={timer.percentualProgress} text="{timer.name}" />
+				{:else}
+					<ProgressRing color="{timer.color}" progress={timer.percentualProgress} text="{timer.name}" />
+			{/if}
+		{/each}
+	</div>
+	<!--{#each $currentRecipe.activeTimers as timer}
+		<p>{timer.ofStep}</p>
+	{/each}-->
+</div>
+
+<style>
+
+	.main-container {
+		height: 80vh;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 3em;
+		text-align: center;
+		color: #fff;
+	}
+
+	.timer-container {
+		position: fixed;
+		bottom: 10px;
+		left: 0px;
+		display: flex;
+	}
+</style>
+
+<script>
+	export default {
+	  components: {
+		ProgressRing: '../ProgressRing/index.html'
+	  }
+	};
+</script>

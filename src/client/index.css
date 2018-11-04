@@ -1,0 +1,9 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: Ubuntu, Roboto, sans-serif;
+    background: rgb(44, 44, 44);
+}

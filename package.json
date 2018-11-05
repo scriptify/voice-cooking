@@ -29,7 +29,8 @@
     "react-dom": "*",
     "react-hot-loader": "^4.3.11",
     "svelte": "^2.15.1",
-    "svelte-apollo": "^0.2.0"
+    "svelte-apollo": "^0.2.0",
+    "svelte-transitions": "^1.2.0"
   },
   "devDependencies": {
     "eslint": "^4.9.0",

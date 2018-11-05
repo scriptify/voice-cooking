@@ -1,0 +1,78 @@
+<ul>
+	{#each items as item}
+		<li class="card-container" on:click="fire('click', { data: item._id })">
+			{#if item.empty}
+				<div class="card">
+					<div class="overlay">
+						<p>...</p>
+					</div>
+				</div>
+			{:else}
+				<div class="card" style="background-image: url({item.image})" transition:fade>
+					<div class="overlay">
+						<p>{item[datafield]}</p>
+					</div>
+				</div>
+			{/if}
+		</li>
+	{/each}
+</ul>
+
+<script>
+	import { fade } from 'svelte-transitions';
+
+	export default {
+	  transitions: { fade }
+	}
+</script>
+
+<style>
+
+	ul {
+		margin: 0;
+		margin-top: 100px;
+		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	.card-container {
+		height: 100vw;
+		width: 100%;
+		list-style: none;
+		padding: 15px;
+		padding-top: 0;
+		max-width: 380px;
+		max-height: 380px;
+		min-width: 300px;
+	}
+
+	.card {
+		height: 100%;
+		background-size: cover;
+		background-position: center center;
+		background-repeat: none;
+		border-radius: 7px;
+		box-shadow: 2px 5px 20px rgba(0, 0, 0, 0.8);
+		overflow: hidden;
+	}
+
+	.overlay {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100%;
+		width: 100%;
+		background-color: rgba(0, 0, 0, 0.4);
+		color: #fff;
+		font-size: 2em;
+	}
+
+	@media only screen and (max-width: 815px) {
+		.card-container {
+			width: 100vw;
+			max-width: none;
+			max-height: 70vh;
+		}
+	}
+</style>

@@ -1,4 +1,4 @@
-<div class="ring" on:click="fire('click')">
+<button class="ring" on:click="fire('click')">
 	<svg viewBox="0 0 36 36" class="circular-chart">
 		<path class="circle"
 			stroke-dasharray="{progress}, 100"
@@ -9,18 +9,20 @@
 		/>
 	</svg>
 	<p class="text">{text}</p>
-</div>
+</button>
 
 <style>
 
 	.ring {
 		margin-left: 20px;
+		background: none;
+		border: none;
 	}
 
 	.circular-chart {
 		display: block;
-		width: 80px;
-		height: 80px;
+		width: 15vh;
+		height: 15vh;
 	}
 
 	.circle {

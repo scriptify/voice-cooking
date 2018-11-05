@@ -5,7 +5,7 @@
 	<div class="timer-container">
 		{#each $timersToShow as timer}
 			{#if timer.inactive}
-				<ProgressRing color="#fff" progress={timer.percentualProgress} text="{timer.name}" on:click="startTimerByName(timer.name)" />
+				<ProgressRing color="rgba(255, 255, 255, 0.7)" progress={timer.percentualProgress} text="{timer.name}" on:click="startTimerByName(timer.name)" />
 				{:else}
 					<ProgressRing color="{timer.color}" progress={timer.percentualProgress} text="{timer.name}" on:click="startTimerByName(timer.name)" />
 			{/if}
@@ -24,12 +24,17 @@
 
 	.main-container {
 		height: 80vh;
+		position: fixed;
+		height: 100%;
+		width: 100%;
+		top: 0;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		font-size: 3em;
 		text-align: center;
 		color: #fff;
+		font-weight: 100;
+		font-size: 3em;
 	}
 
 	.timer-container {
@@ -46,15 +51,23 @@
 		position: fixed;
 		top: 0;
 		background: none;
-		border: none;
+		border: none; 
 	}
 
 	.buttons button:first-of-type {
 		left: 0;
+		/* background: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0));*/
 	}
 
 	.buttons button:nth-of-type(2) {
 		right: 0;
+		/* background: linear-gradient(to left, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0), rgba(0, 0, 0, 0)); */
+	}
+
+	@media only screen and (max-width: 815px) {
+		.main-container {
+			font-size: 11vh;
+		}
 	}
 </style>
 

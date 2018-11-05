@@ -1,4 +1,7 @@
 <div>
+	<header>
+		<img src="{logo}" alt="Ava logo" />
+	</header>
 	{#if $currentRecipe.id}
 		<Recipe />
 	{:elseif $currentCategory}
@@ -6,12 +9,33 @@
 	{:else}
 		<CategoriesList />
 	{/if}
-
-	
 </div>
 
+<style>
+	header {
+		width: 100%;
+		height: 80px;
+		position: absolute;
+		top: 0;
+		margin-bottom: 20px;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	header img {
+		height: 80px;
+		width: auto;
+	}
+</style>
+
 <script>
+	import logo from './Ava.svg';
+
 	export default {
+	  data: () => ({
+	    logo
+	  }),
 	  components: {
 			CategoriesList: '../CategoriesList/index.html',
 			RecipeList: '../RecipeList/index.html',

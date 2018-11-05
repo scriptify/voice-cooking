@@ -1,14 +1,7 @@
 <ul>
 	{#await categories}
-		Loading...
 		{:then result}
-			{#each result.data.categories as category}
-				<li class="card" style="background-image: url({category.image})" on:click="$setCurrentCategory(category._id)">
-					<div class="overlay">
-						<p>{category.name}</p>
-					</div>
-				</li>
-			{/each}
+			<CardList items="{result.data.categories}" datafield="name" on:click="$setCurrentCategory(event.data)" />
 		{:catch error}
 			Error: {error}
 	{/await}
@@ -19,6 +12,9 @@
   import gql from 'graphql-tag';
 
   export default {
+	  	components: {
+		  CardList: '../CardList/index.html'
+		},
 		data: () => ({
 			categories: query(gql`
 					query QueryCategories {
@@ -33,31 +29,3 @@
 		onstate: connect
   };
 </script>
-
-<style>
-
-	ul {
-		margin: 0;
-		padding: 0;
-	}
-
-	.card {
-		height: 500px;
-		width: 100%;
-		background-size: cover;
-		background-position: center center;
-		background-repeat: none;
-		list-style: none;
-	}
-
-	.overlay {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 100%;
-		width: 100%;
-		background-color: rgba(0, 0, 0, 0.4);
-		color: #fff;
-		font-size: 2em;
-	}
-</style>

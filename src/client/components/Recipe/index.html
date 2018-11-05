@@ -5,11 +5,15 @@
 	<div class="timer-container">
 		{#each $timersToShow as timer}
 			{#if timer.inactive}
-				<ProgressRing color="#fff" progress={timer.percentualProgress} text="{timer.name}" />
+				<ProgressRing color="#fff" progress={timer.percentualProgress} text="{timer.name}" on:click="startTimerByName(timer.name)" />
 				{:else}
-					<ProgressRing color="{timer.color}" progress={timer.percentualProgress} text="{timer.name}" />
+					<ProgressRing color="{timer.color}" progress={timer.percentualProgress} text="{timer.name}" on:click="startTimerByName(timer.name)" />
 			{/if}
 		{/each}
+	</div>
+	<div class="buttons">
+		<button on:click="back()"></button>
+		<button on:click="next()"></button>
 	</div>
 	<!--{#each $currentRecipe.activeTimers as timer}
 		<p>{timer.ofStep}</p>
@@ -33,6 +37,24 @@
 		bottom: 10px;
 		left: 0px;
 		display: flex;
+		z-index: 100;
+	}
+
+	.buttons button {
+		height: 100%;
+		width: 20%;
+		position: fixed;
+		top: 0;
+		background: none;
+		border: none;
+	}
+
+	.buttons button:first-of-type {
+		left: 0;
+	}
+
+	.buttons button:nth-of-type(2) {
+		right: 0;
 	}
 </style>
 
@@ -40,6 +62,23 @@
 	export default {
 	  components: {
 		ProgressRing: '../ProgressRing/index.html'
+	  },
+	  methods: {
+		back() {
+		  const { currentRecipeInstance } = this.store.get();
+		  if (currentRecipeInstance)
+		  	currentRecipeInstance.back();
+		},
+		next() {
+		  const { currentRecipeInstance } = this.store.get();
+		  if (currentRecipeInstance)
+		  	currentRecipeInstance.next();
+		},
+		startTimerByName(name) {
+		  const { currentRecipeInstance } = this.store.get();
+		  if (currentRecipeInstance)
+		  	currentRecipeInstance.startTimerByName(name);
+		}
 	  }
 	};
 </script>

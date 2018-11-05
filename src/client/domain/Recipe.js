@@ -7,6 +7,7 @@ export default class Recipe extends EventEmitter {
     super();
     this.data = data;
     this.currentStep = 0;
+    this.timers = {};
     this.setupCommandListeners();
   }
 
@@ -23,6 +24,25 @@ export default class Recipe extends EventEmitter {
       this.say();
 
     this.emit('step');
+  }
+
+  next() {
+    const newStepValue = this.currentStep + 1;
+    if (newStepValue >= this.data.steps.length)
+      return;
+    this.changeStep(newStepValue);
+  }
+
+  back() {
+    const newStepValue = this.currentStep - 1;
+    if (newStepValue < 0)
+      return;
+    this.changeStep(newStepValue);
+  }
+
+  startTimerByName(name) {
+    if (this.timers[name])
+      this.timers[name]();
   }
 
   setupCommandListeners() {
@@ -53,6 +73,7 @@ export default class Recipe extends EventEmitter {
             say(`The timer is set for ${(step.setTimer.duration / 60).toFixed(1)} minutes.`);
             this.emit('timerstart', stepIndex);
           };
+          this.timers[step.setTimer.name] = action;
           return { cmds: [`start ${step.setTimer.name} timer`], action };
         }
         return null;
@@ -63,19 +84,13 @@ export default class Recipe extends EventEmitter {
       {
         cmds: ['next', 'next step'],
         action: () => {
-          const newStepValue = this.currentStep + 1;
-          if (newStepValue >= this.data.steps.length)
-            return;
-          this.changeStep(newStepValue);
+          this.next();
         }
       },
       {
         cmds: ['go back', 'back', 'bag'],
         action: () => {
-          const newStepValue = this.currentStep - 1;
-          if (newStepValue < 0)
-            return;
-          this.changeStep(newStepValue);
+          this.back();
         }
       },
       ...timerCmds

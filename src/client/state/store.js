@@ -93,7 +93,8 @@ class ApplicationState extends Store {
     const newRecipe = new Recipe(recipe);
 
     this.set({
-      recipes: this.get().recipes.concat(recipe)
+      recipes: this.get().recipes.concat(recipe),
+      currentRecipeInstance: newRecipe
     });
 
     newRecipe.addEventListener('step', () => {
@@ -182,7 +183,8 @@ export default function createStore() {
         finishedTimers: []
       },
       currentCategory: null,
-      graphql
+      graphql,
+      currentRecipeInstance: null
     }
   });
 }

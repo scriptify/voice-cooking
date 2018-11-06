@@ -1,0 +1,125 @@
+<div class="recipe-overview">
+	{#if $recipeOverview}
+		<div class="cover-image" style="background-image: url({$recipeOverview.image});">
+			<div class="cover-image__content">
+				<div class="cover-image__content__padding">
+					<p class="title">{$recipeOverview.title}</p>
+					<p class="description">{$recipeOverview.description}</p>
+				</div>
+			</div>
+		</div>
+		<div class="ingredients__padding">
+			<ul class="ingredients">
+					{#each $recipeOverview.ingredients as ingredient}
+						<li>
+							<span>{ingredient.amount.value} {ingredient.amount.unit}</span>
+							<span><b>{ingredient.name}</b></span>
+						</li>
+					{/each}
+			</ul>
+			<div class="start-btn-container">
+				<button on:click="$setCurrentRecipe($recipeOverview._id)" class="start-btn"><span>.</span>►</button>
+			</div>
+		</div>
+	{/if}
+</div>
+
+<style>
+	.cover-image {
+		height: 70vh;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center center;
+		color: #fff;
+		display: flex;
+		flex-flow: column;
+		justify-content: flex-end;
+	}
+
+	.cover-image__content {
+		padding-top: 50px;
+		background: linear-gradient(rgba(0,0,0,0), rgb(0,0,0));
+	}
+
+	.cover-image__content__padding {
+		padding-left: 15px;
+		padding-bottom: 15px;
+	}
+
+	.title {
+		font-size: 7vh;
+	}
+
+	.description {
+		font-size: 2.5vh;
+	}
+
+	.ingredients {
+		list-style: none;
+		box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.8);
+		padding: 15px;
+		background: #fff;
+		border-radius: 3px;
+	}
+
+	.ingredients__padding {
+		padding: 15px;
+	}
+
+	.ingredients li span:first-of-type {
+		width: 20%;
+		text-align: right;
+		margin-right: 5%;
+	}
+
+	.ingredients li span:nth-of-type(2) {
+		width: 75%;
+	}
+
+	.ingredients li {
+		display: flex;
+		justify-content: space-between;
+	}
+
+	.start-btn-container {
+		width: 100%;
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	.start-btn {
+		background: rgb(50, 161, 5);
+		border: none;
+		border-radius: 50%;
+		height: 15vw;
+		width: 15vw;
+		font-size: 1.5em;
+		color: #fff;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-top: -10vw;
+		margin-right: 10px;
+		box-shadow: 0px -3px 10px rgba(0,0,0,0.7);
+		transition: 0.4s box-shadow;
+		cursor: pointer;
+	}
+
+	.start-btn:hover,
+	.start-btn:active,
+	.start-btn:focus {
+		box-shadow: -2px -3px 20px rgba(0,0,0,0.9);
+	}
+
+	.start-btn span {
+		color: rgb(50, 161, 5);
+	}
+
+	@media only screen and (min-width: 420px) {
+		.start-btn {
+			height: 64px;
+			width: 64px;
+			margin-top: -40px;
+		}
+	}
+</style>

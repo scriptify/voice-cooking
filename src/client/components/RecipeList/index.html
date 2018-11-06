@@ -1,7 +1,7 @@
 <ul>
 	{#await recipes}
 		{:then result}
-			<CardList items="{result.data.recipes}" datafield="title" on:click="$setCurrentRecipe(event.data)" />
+			<CardList items="{result.data.recipes}" datafield="title" on:click="$setCurrentRecipeOverview(event.data)" />
 		{:catch error}
 			Error: {error}
 	{/await}

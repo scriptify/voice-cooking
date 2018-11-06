@@ -50,6 +50,8 @@ class ApplicationState extends Store {
         });
       return allTimersUntilNow;
     });
+    this.compute('recipeOverview', ['currentRecipeOverview', 'recipes'], (currentRecipeOverview, recipes) =>
+      recipes.find(recipe => recipe._id === currentRecipeOverview));
   }
 
   async loadRecipe(recipeId) {
@@ -89,11 +91,18 @@ class ApplicationState extends Store {
       `,
       variables: { id: recipeId }
     });
+    this.set({
+      recipes: this.get().recipes.concat(recipe),
+    });
+  }
 
+  async setupRecipe(recipeId) {
+    const recipe = this.get().recipes.find(r => r._id === recipeId);
+    if (!recipe)
+      return;
     const newRecipe = new Recipe(recipe);
 
     this.set({
-      recipes: this.get().recipes.concat(recipe),
       currentRecipeInstance: newRecipe
     });
 
@@ -153,10 +162,18 @@ class ApplicationState extends Store {
     });
   }
 
+  setCurrentRecipeOverview(recipeId) {
+    this.loadRecipe(recipeId);
+    this.set({
+      currentRecipeOverview: recipeId
+    });
+  }
+
   async setCurrentRecipe(recipeId) {
-    await this.loadRecipe(recipeId);
+    await this.setupRecipe(recipeId);
     this.set({
       currentCategory: null,
+      currentRecipeOverview: null,
       currentRecipe: {
         id: recipeId,
         currentStep: 0,
@@ -176,6 +193,7 @@ export default function createStore() {
     apolloClient,
     initialState: {
       recipes: [],
+      currentRecipeOverview: null,
       currentRecipe: {
         id: null,
         currentStep: null,

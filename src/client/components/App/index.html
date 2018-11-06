@@ -1,8 +1,12 @@
 <div>
-	<header>
-		<img src="{logo}" alt="Ava logo" />
-	</header>
-	{#if $currentRecipe.id}
+	{#if !$currentRecipeOverview}
+		<header>
+			<img src="{logo}" alt="Ava logo" />
+		</header>
+	{/if}
+	{#if $currentRecipeOverview}
+		<RecipeOverview />
+	{:elseif $currentRecipe.id}
 		<Recipe />
 	{:elseif $currentCategory}
 		<RecipeList />
@@ -14,10 +18,10 @@
 <style>
 	header {
 		width: 100%;
-		height: 80px;
 		position: absolute;
 		top: 0;
-		margin-bottom: 20px;
+		padding-bottom: 20px;
+		padding-top: 20px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -38,6 +42,7 @@
 	  }),
 	  components: {
 			CategoriesList: '../CategoriesList/index.html',
+			RecipeOverview: '../RecipeOverview/index.html',
 			RecipeList: '../RecipeList/index.html',
 			Recipe: '../Recipe/index.html'
 	  }

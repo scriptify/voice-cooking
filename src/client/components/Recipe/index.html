@@ -15,6 +15,9 @@
 		<button on:click="back()"></button>
 		<button on:click="next()"></button>
 	</div>
+	<div class="potrait-warning">
+		Please turn your phone into landscape mode
+	</div>
 	<!--{#each $currentRecipe.activeTimers as timer}
 		<p>{timer.ofStep}</p>
 	{/each}-->
@@ -67,6 +70,26 @@
 	@media only screen and (max-width: 815px) {
 		.main-container {
 			font-size: 11vh;
+		}
+	}
+
+	.potrait-warning {
+		display: none;
+	}
+
+	@media screen and (orientation:portrait) {
+		.potrait-warning {
+			display: flex;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			z-index: 10000;
+			background: rgb(44, 44, 44);
+			color: #fff;
+			justify-content: center;
+			align-items: center;
 		}
 	}
 </style>

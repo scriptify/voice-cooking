@@ -60,7 +60,7 @@ function utter(text) {
   const speechSynthesis = window.speechSynthesis || window.webkitSpeechSynthesis;
   const sayThis = new SpeechSynthesisUtterance(text);
   sayThis.lang = 'en-US';
-  sayThis.rate = 0.7;
+  sayThis.rate = 1;
   sayThis.onend = () => {
     isCurrentlySpeaking = false;
   };

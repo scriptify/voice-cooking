@@ -186,7 +186,7 @@ class ApplicationState extends Store {
 
 
 export default function createStore() {
-  const apolloClient = new ApolloClient({ uri: 'http://localhost:4000' });
+  const apolloClient = new ApolloClient({ uri: `${window.location.protocol}//${window.location.hostname}:4000` });
   const graphql = createProvider(apolloClient);
 
   return new ApplicationState({

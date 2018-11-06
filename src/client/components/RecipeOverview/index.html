@@ -18,11 +18,25 @@
 					{/each}
 			</ul>
 			<div class="start-btn-container">
-				<button on:click="$setCurrentRecipe($recipeOverview._id)" class="start-btn"><span>.</span>►</button>
+				<button on:click="$setCurrentRecipe($recipeOverview._id)" class="start-btn">
+					<img src="{playIcon}" alt="play" />
+				</button>
 			</div>
 		</div>
 	{/if}
 </div>
+
+<script>
+	import playIcon from './play.png';
+
+	export default {
+	  data() {
+		return {
+		  playIcon
+		};
+	  }
+	}
+</script>
 
 <style>
 	.cover-image {
@@ -105,14 +119,16 @@
 		cursor: pointer;
 	}
 
+	.start-btn img {
+		height: 40%;
+		width: 40%;
+		margin-right: -5px;
+	}
+
 	.start-btn:hover,
 	.start-btn:active,
 	.start-btn:focus {
 		box-shadow: -2px -3px 20px rgba(0,0,0,0.9);
-	}
-
-	.start-btn span {
-		color: rgb(50, 161, 5);
 	}
 
 	@media only screen and (min-width: 420px) {

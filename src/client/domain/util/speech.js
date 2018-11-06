@@ -33,6 +33,12 @@ function setup() {
     }, 300);
   });
 
+  recognition.addEventListener('end', () => {
+    setTimeout(() => {
+      recognition.start();
+    }, 300);
+  });
+
   /* [
         'audiostart',
         'audioend',

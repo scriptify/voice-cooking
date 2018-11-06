@@ -21,7 +21,6 @@ module.exports = async function setupGraphQLServer() {
       models: { recipe, category }
     })
   });
-  console.log(path.join(__dirname, '../../../../build'));
   server.express.use(express.static(path.join(__dirname, '../../../../build/client')));
   return server;
 };

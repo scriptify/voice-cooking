@@ -186,8 +186,9 @@ class ApplicationState extends Store {
 
 
 export default function createStore() {
-  const uri = process.env.NODE_ENV === 'production' ? 'https://ava-cooking.herokuapp.com/' : `${window.location.protocol}//${window.location.hostname}:4000`;
-  const apolloClient = new ApolloClient({ uri });
+  // const uri = process.env.NODE_ENV === 'production' ? 'https://ava-cooking.herokuapp.com/' : `${window.location.protocol}//${window.location.hostname}:4000`;
+  console.log('UNCOMMENT LINE!');
+  const apolloClient = new ApolloClient({ uri: 'https://ava-cooking.herokuapp.com/' });
   const graphql = createProvider(apolloClient);
 
   return new ApplicationState({

@@ -10,7 +10,6 @@ module.exports = function create(PATHS) {
 					options: {
 						skipIntroByDefault: true,
 						nestedTransitions: true,
-						emitCss: true,
 						hotReload: true
 					}
 				}

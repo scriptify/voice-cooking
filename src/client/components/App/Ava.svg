@@ -1,46 +1,82 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-	 viewBox="0 0 249.6 94.1" style="enable-background:new 0 0 249.6 94.1;" xml:space="preserve">
-<style type="text/css">
-	.st0{fill:none;stroke:#000000;stroke-miterlimit:10;}
-	.st1{fill:none;stroke:url(#SVGID_1_);stroke-width:3;stroke-miterlimit:10;}
-	.st2{fill:none;stroke:#26B3F2;stroke-width:3;stroke-miterlimit:10;}
-	.st3{fill:none;stroke:url(#SVGID_2_);stroke-width:3;stroke-miterlimit:10;}
-	.st4{fill:none;stroke:url(#SVGID_3_);stroke-width:5;stroke-miterlimit:10;}
-</style>
-<path class="st0" d="M95.9,59.4"/>
-<g>
-	<g>
-		<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="1.722" y1="49.9778" x2="91.5636" y2="49.9778">
-			<stop  offset="0" style="stop-color:#3BD8EE;stop-opacity:0.12"/>
-			<stop  offset="0.2521" style="stop-color:#35CDEF;stop-opacity:0.2957"/>
-			<stop  offset="0.66" style="stop-color:#26B3F2;stop-opacity:0.58"/>
-			<stop  offset="0.9519" style="stop-color:#26B3F2;stop-opacity:0.9406"/>
-			<stop  offset="1" style="stop-color:#26B3F2"/>
-		</linearGradient>
-		<path class="st1" d="M90.2,74c-1.1,2.2-5.9,11.2-9.5,11.1c-4.4-0.1-9.9-13.8-15.6-35.6c-5.9-22.8-5.6-34.3-8.9-34.6
-			c-9.1-0.7-25,70.4-40.8,69.4c-5.6-0.4-9.6-9.6-12.3-18"/>
-		<path class="st2" d="M159,68.4l-2.7-5.8c-2.5-4.9-8.2-14.5-11.6-14.3c-8.9,0.3-12.3,35.2-18.6,34.9l0.2,0
-			c-6.4,0.3-9.7-34.6-18.6-34.9c-3.4-0.1-13.1,17-15.6,21.8"/>
-		
-			<linearGradient id="SVGID_2_" gradientUnits="userSpaceOnUse" x1="156.8449" y1="52.0137" x2="246.1293" y2="52.0137" gradientTransform="matrix(-0.9925 -0.1219 -0.1219 0.9925 413.0216 25.3525)">
-			<stop  offset="1.043670e-02" style="stop-color:#3BD8EE;stop-opacity:3.880208e-02"/>
-			<stop  offset="0.2585" style="stop-color:#2DC0F1;stop-opacity:0.3468"/>
-			<stop  offset="0.4464" style="stop-color:#26B3F2;stop-opacity:0.58"/>
-			<stop  offset="1" style="stop-color:#26B3F2"/>
-			<stop  offset="1" style="stop-color:#0071BC"/>
-			<stop  offset="1" style="stop-color:#0D87C6;stop-opacity:0.742"/>
-			<stop  offset="1" style="stop-color:#1DA4D3;stop-opacity:0.3467"/>
-			<stop  offset="1" style="stop-color:#23AFD8;stop-opacity:0.12"/>
-		</linearGradient>
-		<path class="st3" d="M160.6,71.5c1.5,3,4.1,12.3,7.8,12.6c4.4,0.4,13.1-16.8,21.3-37.8c8.6-21.9,9.8-33.4,14.3-30.3
-			c5.8,4,13.8,68,29.6,68.9c5.6,0.3,10.8-7.4,14.5-15.3"/>
-	</g>
-	<linearGradient id="SVGID_3_" gradientUnits="userSpaceOnUse" x1="94.5403" y1="65.6448" x2="94.5403" y2="65.6448">
-		<stop  offset="0" style="stop-color:#3DDEED"/>
-		<stop  offset="0" style="stop-color:#3DDEED;stop-opacity:0"/>
-	</linearGradient>
-	<path class="st4" d="M94.5,65.6"/>
-</g>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created using Krita: http://krita.org -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="1474.56pt"
+   height="1474.56pt"
+   viewBox="0 0 1474.56 1474.56"
+   version="1.1"
+   id="svg7"
+   sodipodi:docname="AVA Logo.svg"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)">
+  <metadata
+     id="metadata11">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="2560"
+     inkscape:window-height="1377"
+     id="namedview9"
+     showgrid="false"
+     inkscape:zoom="0.1200358"
+     inkscape:cx="432.12287"
+     inkscape:cy="799.76137"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg7" />
+  <defs
+     id="defs2" />
+  <path
+     id="shape0"
+     transform="matrix(0.999999960263572 0 0 0.999999960263572 46.0799981689417 459.990004478889)"
+     fill="none"
+     stroke="#000000"
+     stroke-width="28.7999999999977"
+     stroke-linecap="round"
+     stroke-linejoin="round"
+     d="M0 552.96L276.48 0L552.96 552.96L622.08 553.5L345.6 0.539985L414.72 0.539985L691.2 554.58L967.68 0.539985L1036.8 0.539985L760.32 553.5L829.44 553.5L1105.92 0.539985L1382.4 553.5"
+     style="stroke:#f74557;stroke-opacity:1" />
+  <path
+     id="shape1"
+     transform="matrix(0.999999960263572 0 0 0.999999960263572 230.399990844709 875.519965209892)"
+     fill="none"
+     stroke="#000000"
+     stroke-width="28.7999999999977"
+     stroke-linecap="round"
+     stroke-linejoin="bevel"
+     d="M0 0L184.32 0"
+     style="stroke:#f74557;stroke-opacity:1" />
+  <path
+     id="shape2"
+     transform="matrix(0.999999960263572 0 0 0.999999960263572 1059.83995788566 875.519965209892)"
+     fill="none"
+     stroke="#000000"
+     stroke-width="28.7999999999977"
+     stroke-linecap="round"
+     stroke-linejoin="bevel"
+     d="M0 0L184.32 0"
+     style="stroke:#f74557;stroke-opacity:1" />
 </svg>

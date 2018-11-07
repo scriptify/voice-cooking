@@ -14,10 +14,6 @@
     "displayName": "voice-cooking",
     "aliases": {
       "@shared": "src/shared"
-    },
-    "webpackDevServer": {
-      "host": "192.168.2.102",
-      "https": true
     }
   },
   "_moduleAliases": {
